@@ -8,13 +8,12 @@ import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
 import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import MessageIcon from "@mui/icons-material/Message";
 import { Box } from "@mui/material";
+import { useHeader } from "./context/HeaderContext";
 
 const lightColor = "rgba(255, 255, 255, 0.7)";
 
@@ -27,6 +26,10 @@ const pageToTitle: { [key: string]: string } = {
   "/warehouses": "Warehouses",
   "/analytics": "Analytics",
   "/referral-program": "Referral Program",
+  "/settings/account": "Account Settings",
+  "/settings/integration": "Integration Settings",
+  "/settings/shipping": "Shipping Settings",
+  "/settings/feed": "Feed Settings",
   "/settings": "Settings",
 };
 
@@ -37,6 +40,7 @@ interface HeaderProps {
 export default function Header(props: HeaderProps) {
   const { onDrawerToggle } = props;
   const pathname = usePathname();
+  const { thirdAppBar } = useHeader();
 
   // Get the current page title based on pathname
   const currentTitle =
@@ -133,19 +137,8 @@ export default function Header(props: HeaderProps) {
         </Toolbar>
       </AppBar>
 
-      <AppBar
-        component="div"
-        position="static"
-        elevation={0}
-        sx={{ zIndex: 0 }}
-      >
-        <Tabs value={0} textColor="inherit">
-          <Tab label="Users" />
-          <Tab label="Sign-in method" />
-          <Tab label="Templates" />
-          <Tab label="Usage" />
-        </Tabs>
-      </AppBar>
+      {/* Third AppBar (Controlled by page) */}
+      {thirdAppBar}
     </React.Fragment>
   );
 }

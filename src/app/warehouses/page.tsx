@@ -1,8 +1,34 @@
-export const metadata = {
-  title: 'Warehouses | Shipvista',
-};
+"use client";
 
-export default async function Warehouses() {
+import { useEffect } from "react";
+import { useHeader } from "@/components/context/HeaderContext";
+import { AppBar, Tabs, Tab } from "@mui/material";
+
+export default function Warehouses() {
+  const { setThirdAppBar } = useHeader();
+
+  useEffect(() => {
+    // Set custom 3rd AppBar with Warehouses tabs
+    setThirdAppBar(
+      <AppBar
+        component="div"
+        position="static"
+        elevation={0}
+        sx={{ zIndex: 0 }}
+      >
+        <Tabs value={0} textColor="inherit">
+          <Tab label="All Locations" />
+          <Tab label="Inventory" />
+          <Tab label="Capacity" />
+          <Tab label="Settings" />
+        </Tabs>
+      </AppBar>
+    );
+
+    // Reset when leaving page
+    return () => setThirdAppBar(null);
+  }, [setThirdAppBar]);
+
   return (
     <div>
       <h1>Warehouses</h1>
