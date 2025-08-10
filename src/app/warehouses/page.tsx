@@ -17,10 +17,9 @@ export default function Warehouses() {
         sx={{ zIndex: 0 }}
       >
         <Tabs value={0} textColor="inherit">
-          <Tab label="All Locations" />
-          <Tab label="Inventory" />
-          <Tab label="Capacity" />
-          <Tab label="Settings" />
+          <Tab label="My Products" />
+          <Tab label="Warehouse Shipments" />
+          <Tab label="My Inventory" />
         </Tabs>
       </AppBar>
     );

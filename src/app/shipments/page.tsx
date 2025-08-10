@@ -17,11 +17,12 @@ export default function Shipments() {
         sx={{ zIndex: 0 }}
       >
         <Tabs value={0} textColor="inherit">
-          <Tab label="All Shipments" />
-          <Tab label="In Transit" />
-          <Tab label="Delivered" />
-          <Tab label="Delayed" />
-          <Tab label="Returns" />
+          <Tab label="Create Shipment" />
+          <Tab label="Shipments History" />
+          <Tab label="My Pickups" />
+          <Tab label="Fulfillments" />
+          <Tab label="End of Day" />
+          <Tab label="Batches History" />
         </Tabs>
       </AppBar>
     );

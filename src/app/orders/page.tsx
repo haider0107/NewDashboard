@@ -17,11 +17,11 @@ export default function Orders() {
         sx={{ zIndex: 0 }}
       >
         <Tabs value={0} textColor="inherit">
-          <Tab label="All Orders" />
-          <Tab label="Pending" />
-          <Tab label="Processing" />
-          <Tab label="Completed" />
-          <Tab label="Cancelled" />
+          <Tab label="Awaiting Payment" />
+          <Tab label="On Hold" />
+          <Tab label="Awaiting Shipment" />
+          <Tab label="Shipped" />
+          <Tab label="Canceled" />
         </Tabs>
       </AppBar>
     );
@@ -33,7 +33,9 @@ export default function Orders() {
   return (
     <div>
       <h1>Orders</h1>
-      <p>This is the Orders page where you can manage and track all your orders.</p>
+      <p>
+        This is the Orders page where you can manage and track all your orders.
+      </p>
     </div>
   );
 }

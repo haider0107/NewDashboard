@@ -18,10 +18,10 @@ export default function Analytics() {
       >
         <Tabs value={0} textColor="inherit">
           <Tab label="Overview" />
-          <Tab label="Performance" />
-          <Tab label="Costs" />
-          <Tab label="Trends" />
-          <Tab label="Reports" />
+          <Tab label="Operation" />
+          <Tab label="Sales Trend" />
+          <Tab label="Customer Overview" />
+          <Tab label="Product Highlights" />
         </Tabs>
       </AppBar>
     );
