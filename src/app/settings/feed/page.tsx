@@ -2,13 +2,25 @@
 
 import { useHeader } from "@/components/context/HeaderContext";
 import { AppBar, Tab, Tabs } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import BulkOrdersFeed from "@/components/settings/feed/bulkOrdersFeed";
+import BulkAffiliateUserFeed from "@/components/settings/feed/bulkAffiliateUserFeed";
 
 export default function FeedPage() {
   const { setThirdAppBar } = useHeader();
+  const [tabValue, setTabValue] = useState(0);
+
+  const tabContents = [
+    { label: "Bulk Orders Feed", component: <BulkOrdersFeed /> },
+    { label: "Bulk Affiliate User Feed", component: <BulkAffiliateUserFeed /> },
+  ];
+
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
+  };
 
   useEffect(() => {
-    // Set custom 3rd AppBar with Referral Program tabs
+    // Set custom 3rd AppBar with Feed tabs
     setThirdAppBar(
       <AppBar
         component="div"
@@ -16,21 +28,17 @@ export default function FeedPage() {
         elevation={0}
         sx={{ zIndex: 0 }}
       >
-        <Tabs value={0} textColor="inherit">
-          <Tab label="Bulk Orders Feed " />
-          <Tab label="Bulk Affiliate User Feed" />
+        <Tabs value={tabValue} onChange={handleTabChange} textColor="inherit">
+          {tabContents.map((tab, index) => (
+            <Tab key={index} label={tab.label} />
+          ))}
         </Tabs>
       </AppBar>
     );
 
     // Reset when leaving page
     return () => setThirdAppBar(null);
-  }, [setThirdAppBar]);
+  }, [setThirdAppBar, tabValue]);
 
-  return (
-    <div>
-      <h1>Feed Settings</h1>
-      <p>Configure your feed settings here.</p>
-    </div>
-  );
+  return <div>{tabContents[tabValue]?.component}</div>;
 }

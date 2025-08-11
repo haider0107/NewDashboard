@@ -1,11 +1,29 @@
 "use client";
 
-import { useEffect } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useHeader } from "@/components/context/HeaderContext";
 import { AppBar, Tabs, Tab } from "@mui/material";
+import AwaitingPayment from "@/components/orders/awaitingPayment";
+import OnHold from "@/components/orders/onHold";
+import AwaitingShipment from "@/components/orders/awaitingShipment";
+import Shipped from "@/components/orders/shipped";
+import Canceled from "@/components/orders/canceled";
 
 export default function Orders() {
   const { setThirdAppBar } = useHeader();
+  const [tabValue, setTabValue] = useState(0);
+
+  const tabContents = useMemo(() => [
+    { label: "Awaiting Payment", component: <AwaitingPayment /> },
+    { label: "On Hold", component: <OnHold /> },
+    { label: "Awaiting Shipment", component: <AwaitingShipment /> },
+    { label: "Shipped", component: <Shipped /> },
+    { label: "Canceled", component: <Canceled /> },
+  ], []);
+
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
+  };
 
   useEffect(() => {
     // Set custom 3rd AppBar with Orders tabs
@@ -16,26 +34,17 @@ export default function Orders() {
         elevation={0}
         sx={{ zIndex: 0 }}
       >
-        <Tabs value={0} textColor="inherit">
-          <Tab label="Awaiting Payment" />
-          <Tab label="On Hold" />
-          <Tab label="Awaiting Shipment" />
-          <Tab label="Shipped" />
-          <Tab label="Canceled" />
+        <Tabs value={tabValue} onChange={handleTabChange} textColor="inherit">
+          {tabContents.map((tab, index) => (
+            <Tab key={index} label={tab.label} />
+          ))}
         </Tabs>
       </AppBar>
     );
 
     // Reset when leaving page
     return () => setThirdAppBar(null);
-  }, [setThirdAppBar]);
+  }, [setThirdAppBar, tabValue]);
 
-  return (
-    <div>
-      <h1>Orders</h1>
-      <p>
-        This is the Orders page where you can manage and track all your orders.
-      </p>
-    </div>
-  );
+  return <div>{tabContents[tabValue]?.component}</div>;
 }

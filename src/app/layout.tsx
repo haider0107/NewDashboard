@@ -237,7 +237,7 @@ export default function RootLayout({
                 {/* This will grow and push footer down */}
                 <Box
                   component="main"
-                  sx={{ flexGrow: 1, py: 6, px: 4, bgcolor: "#eaeff1" }}
+                  sx={{ flexGrow: 1, py: 2, px: 2, bgcolor: "#eaeff1" }}
                 >
                   {children}
                 </Box>

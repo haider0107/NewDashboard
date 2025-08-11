@@ -1,11 +1,23 @@
 "use client";
 
 import { useHeader } from "@/components/context/HeaderContext";
+import SetupCarriers from "@/components/settings/integration/SetupCarriers";
+import SetupStores from "@/components/settings/integration/SetupStores";
 import { AppBar, Tab, Tabs } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function IntegrationPage() {
   const { setThirdAppBar } = useHeader();
+  const [tabValue, setTabValue] = useState(0);
+
+  const tabContents = [
+    { label: "Setup Stores", component: <SetupStores /> },
+    { label: "Setup Carriers", component: <SetupCarriers /> },
+  ];
+
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
+  };
 
   useEffect(() => {
     // Set custom 3rd AppBar with Referral Program tabs
@@ -16,21 +28,17 @@ export default function IntegrationPage() {
         elevation={0}
         sx={{ zIndex: 0 }}
       >
-        <Tabs value={0} textColor="inherit">
-          <Tab label="Setup Stores" />
-          <Tab label="Setup Carriers" />
+        <Tabs value={tabValue} onChange={handleTabChange} textColor="inherit">
+          {tabContents.map((tab, index) => (
+            <Tab key={index} label={tab.label} />
+          ))}
         </Tabs>
       </AppBar>
     );
 
     // Reset when leaving page
     return () => setThirdAppBar(null);
-  }, [setThirdAppBar]);
+  }, [setThirdAppBar, tabValue]);
 
-  return (
-    <div>
-      <h1>Integration Settings</h1>
-      <p>Configure your integrations here.</p>
-    </div>
-  );
+  return <div>{tabContents[tabValue]?.component}</div>;
 }
